@@ -8,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-var botToken = builder.Configuration.GetSection("BotToken").Get<string>();
-if (botToken != null)
+var botToken = builder.Configuration["AUTH_TOKEN"];
+if (!string.IsNullOrEmpty(botToken))
 {
     builder.Services.AddSingleton<ITelegramBotClient>(new TelegramBotClient(botToken));
 }
