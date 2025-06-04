@@ -30,7 +30,7 @@ namespace TelegramBotFramework
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            logger.LogInformation("Job started");
+            logger.LogInformation("Job stopped");
             return Task.CompletedTask;
         }
 
