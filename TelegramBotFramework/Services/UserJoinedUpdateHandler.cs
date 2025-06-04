@@ -30,12 +30,11 @@ namespace TelegramBotFramework.Services
 
         public Task<bool> CanHandleUpdateAsync(ITelegramBotClient telegramBotClient, Update update, CancellationToken cancellationToken)
         {
-            if (update.Type == UpdateType.Message)
-            {
-                return update.Message?.Type == MessageType.NewChatMembers ? Task.FromResult(update.Message.NewChatMembers != null) : Task.FromResult(false);
-            }
-
-            return Task.FromResult(false);
+            // We need to handle both messages from new chat members and
+            // subsequent answers from users. Returning true for any
+            // "Message" update ensures we don't ignore messages that
+            // contain potential answers.
+            return Task.FromResult(update.Type == UpdateType.Message);
         }
     }
 }
